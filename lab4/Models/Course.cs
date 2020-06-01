@@ -15,7 +15,7 @@ namespace lab4.Models
         [Required]
         [StringLength(255)]
         public string Place { get; set; }
-        public DateTime Datatime { get; set; }
+        public DateTime DataTime { get; set; }
         public Category Category { get; set; }
         [Required]
         public byte ategoryId { get; set; }
