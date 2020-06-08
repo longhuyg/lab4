@@ -18,7 +18,9 @@ namespace lab4.Models
         public DateTime DataTime { get; set; }
         public Category Category { get; set; }
         [Required]
-        public byte ategoryId { get; set; }
+        
+        public object LecturerID { get; internal set; }
+        public byte CategoryId { get; internal set; }
     }
    
 

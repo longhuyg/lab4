@@ -1,4 +1,7 @@
-﻿using System;
+﻿using lab4.Models;
+using lab4.viewModels;
+using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,10 +11,30 @@ namespace lab4.Controllers
 {
     public class CoursesController : Controller
     {
-        // GET: Courses
-        public ActionResult Create()
+        private readonly ApplicationDbContext _dbContext;
+        public CoursesController()
         {
-            return View();
+            _dbContext = new ApplicationDbContext();
+        }
+        [Authorize]
+        [HttpPost]
+        public ActionResult Create(CourseViewModel viewModel)
+        {
+            if(!ModelState.IsValid)
+            {
+                viewModel.Categories = _dbContext.Categorises.ToList();
+                return View("Create", viewModel);
+            }
+            var course = new Course
+            {
+                LecturerID = User.Identity.GetUserId(),
+                DataTime = viewModel.GetDateTiem(),
+                CategoryId = viewModel.Category,
+                Place=viewModel.Place
+            };
+            _dbContext.Courses.Add(course);
+            _dbContext.SaveChanges();
+            return RedirectToAction("Index","Home");
         }
     }
 }
