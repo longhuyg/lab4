@@ -17,6 +17,15 @@ namespace lab4.Controllers
             _dbContext = new ApplicationDbContext();
         }
         [Authorize]
+        public ActionResult Create()
+        {
+            var viewModel = new CourseViewModel
+            {
+                Categories = _dbContext.Categorises.ToList()
+            };
+            return View(viewModel);
+        }
+        [Authorize]
         [HttpPost]
         public ActionResult Create(CourseViewModel viewModel)
         {
@@ -28,7 +37,7 @@ namespace lab4.Controllers
             var course = new Course
             {
                 LecturerID = User.Identity.GetUserId(),
-                DataTime = viewModel.GetDateTiem(),
+                DataTime = viewModel.GetDateTime(),
                 CategoryId = viewModel.Category,
                 Place=viewModel.Place
             };
