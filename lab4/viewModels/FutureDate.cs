@@ -7,7 +7,11 @@ namespace lab4.viewModels
 {
     public class FutureDate
     {
-        public override bool IsVali
+        public override bool IsValid(object value)
+        {
+            DateTime dateTime;
+            var isValid = new DateTime
 
+        }
     }
 }
